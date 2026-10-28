@@ -166,7 +166,7 @@
 
             <!-- MINIMAL COUNTDOWN TIMER -->
             <section class="pt-2 border-t border-camel-300/20">
-                <p class="text-center text-[10px] uppercase tracking-[0.3em] text-camel-500 font-semibold mb-5">Mərasimə Qalan Vaxt</p>
+                <p class="text-center text-[10px] uppercase tracking-[0.3em] text-camel-500 font-semibold mb-5">Toya qalan vaxt</p>
                 
                 <div class="grid grid-cols-4 gap-2.5 text-center">
                     <div class="bg-chic-50/80 backdrop-blur-md rounded-xl p-2.5 border border-camel-300/20 shadow-sm">
@@ -331,7 +331,62 @@
         }
         animateParticles();
 
-        /* ... existing code for countdown, audio & RSVP ... */
+        /* 2. LIVE COUNTDOWN TIMER TO NOVEMBER 16, 2026, 18:00 */
+        const weddingTargetDate = new Date("November 16, 2026 18:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = weddingTargetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('cd-days').innerText = days < 10 ? '0' + days : days;
+                document.getElementById('cd-hours').innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById('cd-minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('cd-seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+            } else {
+                document.getElementById('cd-days').innerText = "00";
+                document.getElementById('cd-hours').innerText = "00";
+                document.getElementById('cd-minutes').innerText = "00";
+                document.getElementById('cd-seconds').innerText = "00";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        /* 3. AUDIO PLAYER CONTROL */
+        const bgAudio = document.getElementById('bgAudio');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = document.getElementById('musicIcon');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                bgAudio.pause();
+                musicIcon.className = "fa-solid fa-music text-xs";
+                musicBtn.classList.remove('animate-pulse');
+            } else {
+                bgAudio.play().then(() => {
+                    musicIcon.className = "fa-solid fa-pause text-xs";
+                    musicBtn.classList.add('animate-pulse');
+                }).catch(e => console.log("Audio play blocked", e));
+            }
+            isPlaying = !isPlaying;
+        }
+
+        /* Auto-check saved RSVP */
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedRSVP = localStorage.getItem('fs_rsvp');
+            if (savedRSVP) {
+                const data = JSON.parse(savedRSVP);
+                document.getElementById('guestName').value = data.name;
+            }
+        });
 
         /* RSVP CONFETTI COLOR CUSTOMIZATION */
         function submitRSVP(event) {
@@ -370,4 +425,11 @@
 
             localStorage.setItem('fs_rsvp', JSON.stringify({ name, attendance }));
         }
-<!-- ... existing code -->
+
+        function resetRSVP() {
+            document.getElementById('rsvpForm').classList.remove('hidden');
+            document.getElementById('rsvpSuccess').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
