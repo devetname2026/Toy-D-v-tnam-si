@@ -127,60 +127,66 @@
     </div>
 
     <!-- MAIN APP WRAPPER -->
-    <main class="max-w-md mx-auto px-6 py-12 relative z-10 flex flex-col justify-between min-h-screen">
+    <main class="max-w-md mx-auto px-4 sm:px-6 py-8 sm:py-12 relative z-10 flex flex-col min-h-screen justify-center">
 
-        <!-- HEADER SECTION -->
-        <header class="text-center pt-8 pb-10">
-            <p class="text-[10px] uppercase tracking-[0.4em] text-gold-500 font-semibold mb-3">Toy Dəvətnaməsi</p>
-            
-            <!-- COUPLE NAMES (EDITORIAL TYPOGRAPHY) -->
-            <h1 class="font-editorial text-5xl sm:text-6xl tracking-tight text-charcoal-900 leading-none mb-3">
-                Fuad <span class="font-serif italic font-light text-3xl sm:text-4xl text-gold-500">&</span> Sevinc
-            </h1>
+        <!-- SINGLE CONTINUOUS ELEGANT CARD -->
+        <div class="minimal-card rounded-3xl p-6 sm:p-10 shadow-2xl space-y-10 relative my-auto">
 
-            <div class="w-8 h-[1px] bg-gold-400 mx-auto my-6 opacity-60"></div>
+            <!-- HEADER SECTION -->
+            <header class="text-center pt-2">
+                <p class="text-[10px] uppercase tracking-[0.4em] text-gold-500 font-semibold mb-4">Toy Dəvətnaməsi</p>
+                
+                <!-- COUPLE NAMES -->
+                <h1 class="font-editorial text-5xl sm:text-6xl tracking-tight text-charcoal-900 leading-none mb-3">
+                    Fuad <span class="font-serif italic font-light text-3xl sm:text-4xl text-gold-500">&</span> Sevinc
+                </h1>
 
-            <p class="font-editorial text-xl text-charcoal-800 tracking-wider">16 NOYABR 2026</p>
-            <p class="text-[11px] font-medium tracking-[0.2em] text-gray-400 uppercase mt-1">SAAT 18:00</p>
-        </header>
+                <div class="w-8 h-[1px] bg-gold-400 mx-auto my-5 opacity-60"></div>
 
-        <!-- OPENING MESSAGE -->
-        <section class="my-6">
-            <div class="minimal-card rounded-2xl p-8 text-center relative">
-                <p class="font-serif text-xl sm:text-2xl italic leading-relaxed text-charcoal-800 font-normal">
+                <p class="font-editorial text-xl text-charcoal-800 tracking-wider">16 NOYABR 2026</p>
+                <p class="text-[11px] font-medium tracking-[0.2em] text-gray-400 uppercase mt-1">SAAT 18:00</p>
+
+                <!-- ANIMATED SCROLL DOWN INDICATOR -->
+                <div class="pt-8 flex flex-col items-center justify-center animate-bounce opacity-70">
+                    <span class="text-[9px] uppercase tracking-[0.25em] text-gray-400 font-medium mb-1.5">Aşağı sürüşdürün</span>
+                    <i class="fa-solid fa-chevron-down text-xs text-gold-500"></i>
+                </div>
+            </header>
+
+            <!-- OPENING MESSAGE -->
+            <section class="text-center pt-2 border-t border-black/5">
+                <p class="font-serif text-lg sm:text-xl italic leading-relaxed text-charcoal-800 font-normal pt-6">
                     “Həyatımızın ən xoşbəxt gününün başlanğıcında yanımızda olmağınız və bu sevincə şərik çıxmağınız bizə sonsuz qürur verər.”
                 </p>
-            </div>
-        </section>
+            </section>
 
-        <!-- MINIMAL COUNTDOWN TIMER -->
-        <section class="my-8">
-            <p class="text-center text-[10px] uppercase tracking-[0.3em] text-gray-400 font-semibold mb-6">Mərasimə Qalan Vaxt</p>
-            
-            <div class="grid grid-cols-4 gap-3 text-center">
-                <div class="bg-white/60 backdrop-blur-md rounded-xl p-3 border border-black/5">
-                    <span id="cd-days" class="font-editorial text-2xl sm:text-3xl text-charcoal-900 block font-normal">00</span>
-                    <span class="text-[9px] uppercase tracking-wider text-gray-400 mt-1 block">Gün</span>
+            <!-- MINIMAL COUNTDOWN TIMER -->
+            <section class="pt-2 border-t border-black/5">
+                <p class="text-center text-[10px] uppercase tracking-[0.3em] text-gray-400 font-semibold mb-5">Mərasimə Qalan Vaxt</p>
+                
+                <div class="grid grid-cols-4 gap-2.5 text-center">
+                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-black/5">
+                        <span id="cd-days" class="font-editorial text-2xl text-charcoal-900 block font-normal">00</span>
+                        <span class="text-[8px] uppercase tracking-wider text-gray-400 mt-0.5 block">Gün</span>
+                    </div>
+                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-black/5">
+                        <span id="cd-hours" class="font-editorial text-2xl text-charcoal-900 block font-normal">00</span>
+                        <span class="text-[8px] uppercase tracking-wider text-gray-400 mt-0.5 block">Saat</span>
+                    </div>
+                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-black/5">
+                        <span id="cd-minutes" class="font-editorial text-2xl text-charcoal-900 block font-normal">00</span>
+                        <span class="text-[8px] uppercase tracking-wider text-gray-400 mt-0.5 block">Dəq</span>
+                    </div>
+                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-black/5">
+                        <span id="cd-seconds" class="font-editorial text-2xl text-charcoal-900 block font-normal">00</span>
+                        <span class="text-[8px] uppercase tracking-wider text-gray-400 mt-0.5 block">San</span>
+                    </div>
                 </div>
-                <div class="bg-white/60 backdrop-blur-md rounded-xl p-3 border border-black/5">
-                    <span id="cd-hours" class="font-editorial text-2xl sm:text-3xl text-charcoal-900 block font-normal">00</span>
-                    <span class="text-[9px] uppercase tracking-wider text-gray-400 mt-1 block">Saat</span>
-                </div>
-                <div class="bg-white/60 backdrop-blur-md rounded-xl p-3 border border-black/5">
-                    <span id="cd-minutes" class="font-editorial text-2xl sm:text-3xl text-charcoal-900 block font-normal">00</span>
-                    <span class="text-[9px] uppercase tracking-wider text-gray-400 mt-1 block">Dəq</span>
-                </div>
-                <div class="bg-white/60 backdrop-blur-md rounded-xl p-3 border border-black/5">
-                    <span id="cd-seconds" class="font-editorial text-2xl sm:text-3xl text-charcoal-900 block font-normal">00</span>
-                    <span class="text-[9px] uppercase tracking-wider text-gray-400 mt-1 block">San</span>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- VENUE & NAVIGATION -->
-        <section class="my-6">
-            <div class="minimal-card rounded-2xl p-8 text-center space-y-4">
-                <div class="w-10 h-10 mx-auto rounded-full bg-cream-100 flex items-center justify-center text-gold-500 mb-2">
+            <!-- VENUE & NAVIGATION -->
+            <section class="pt-2 border-t border-black/5 text-center space-y-4">
+                <div class="w-10 h-10 mx-auto rounded-full bg-cream-100 flex items-center justify-center text-gold-500 mt-4">
                     <i class="fa-solid fa-location-dot text-sm"></i>
                 </div>
                 
@@ -189,12 +195,8 @@
                     <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium mt-0.5">Şadlıq Sarayı</p>
                 </div>
 
-                <div class="text-xs text-gray-500 pt-2 border-t border-black/5 space-y-1">
-                    <p>16 Noyabr 2026 • 18:00</p>
-                </div>
-
                 <!-- NAVIGATION BUTTONS -->
-                <div class="pt-4 flex flex-col gap-2.5">
+                <div class="pt-2 flex flex-col gap-2.5">
                     <a href="https://maps.app.goo.gl/2Rz43K1oTn1Wor3w9?g_st=ic" target="_blank" rel="noopener"
                        class="w-full py-3 px-4 rounded-xl bg-charcoal-900 text-cream-50 text-[11px] font-medium tracking-widest uppercase hover:bg-charcoal-800 transition-all flex items-center justify-center gap-2">
                         <i class="fa-brands fa-google text-xs"></i>
@@ -207,19 +209,17 @@
                         <span>Waze Naviqasiya</span>
                     </a>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- MODERN MINIMAL RSVP -->
-        <section class="my-6">
-            <div class="minimal-card rounded-2xl p-8">
-                <div class="text-center mb-6">
+            <!-- MODERN MINIMAL RSVP -->
+            <section class="pt-2 border-t border-black/5">
+                <div class="text-center mb-5 mt-2">
                     <h2 class="font-editorial text-2xl text-charcoal-900">İştirak Təsdiqi</h2>
                     <p class="text-[11px] text-gray-400 mt-1">Zəhmət olmasa gəlişinizi bizə bildirin</p>
                 </div>
 
                 <!-- SUCCESS MESSAGE CONTAINER -->
-                <div id="rsvpSuccess" class="hidden text-center py-6 space-y-3">
+                <div id="rsvpSuccess" class="hidden text-center py-4 space-y-2">
                     <div id="rsvpStatusIcon" class="text-2xl text-gold-500"></div>
                     <h3 id="rsvpTitle" class="font-editorial text-xl text-charcoal-900"></h3>
                     <p id="rsvpText" class="text-xs text-gray-500 font-light leading-relaxed"></p>
@@ -229,7 +229,7 @@
                 </div>
 
                 <!-- RSVP FORM -->
-                <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-5">
+                <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-4">
                     <div>
                         <label for="guestName" class="block text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-2">Ad və Soyadınız</label>
                         <input type="text" id="guestName" required placeholder="Adınız və Soyadınız"
@@ -241,13 +241,13 @@
                         <div class="grid grid-cols-1 gap-2">
                             <div class="rsvp-pill">
                                 <input type="radio" id="attending" name="attendance" value="YES" checked class="hidden">
-                                <label for="attending" class="w-full py-3.5 px-4 rounded-xl border border-black/10 bg-white/50 text-charcoal-900 text-xs font-medium text-center block cursor-pointer transition-all">
+                                <label for="attending" class="w-full py-3 px-4 rounded-xl border border-black/10 bg-white/50 text-charcoal-900 text-xs font-medium text-center block cursor-pointer transition-all">
                                     Gələcəyəm
                                 </label>
                             </div>
                             <div class="rsvp-pill">
                                 <input type="radio" id="notAttending" name="attendance" value="NO" class="hidden">
-                                <label for="notAttending" class="w-full py-3.5 px-4 rounded-xl border border-black/10 bg-white/50 text-gray-500 text-xs font-medium text-center block cursor-pointer transition-all">
+                                <label for="notAttending" class="w-full py-3 px-4 rounded-xl border border-black/10 bg-white/50 text-gray-500 text-xs font-medium text-center block cursor-pointer transition-all">
                                     Təəssüf ki, gələ bilməyəcəm
                                 </label>
                             </div>
@@ -259,22 +259,18 @@
                         Təsdiq Et
                     </button>
                 </form>
-            </div>
-        </section>
+            </section>
 
-        <!-- GOOGLE CALENDAR LINK -->
-        <div class="text-center my-4">
-            <button onclick="addToCalendar()" class="text-[11px] font-medium uppercase tracking-widest text-gray-400 hover:text-charcoal-900 transition-colors inline-flex items-center gap-2">
-                <i class="fa-regular fa-calendar-plus text-xs"></i>
-                <span>Təqvimə Əlavə Et</span>
-            </button>
+            <!-- GOOGLE CALENDAR LINK & FOOTER -->
+            <footer class="pt-2 border-t border-black/5 text-center space-y-4 pb-2">
+                <button onclick="addToCalendar()" class="text-[11px] font-medium uppercase tracking-widest text-gray-400 hover:text-charcoal-900 transition-colors inline-flex items-center gap-2 pt-2">
+                    <i class="fa-regular fa-calendar-plus text-xs"></i>
+                    <span>Təqvimə Əlavə Et</span>
+                </button>
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest pt-2">Fuad & Sevinc • 16 Noyabr 2026</p>
+            </footer>
+
         </div>
-
-        <!-- FOOTER -->
-        <footer class="text-center py-8 border-t border-black/5 mt-6 space-y-2">
-            <p class="font-editorial text-2xl text-charcoal-900">Fuad & Sevinc</p>
-            <p class="text-[10px] text-gray-400 uppercase tracking-widest">16 Noyabr 2026 • Golden Ring</p>
-        </footer>
 
     </main>
 
