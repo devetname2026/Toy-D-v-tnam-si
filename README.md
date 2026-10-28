@@ -8,10 +8,10 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Italiana, Plus Jakarta Sans, Cormorant Garamond -->
+    <!-- Google Fonts: Italiana, Cormorant Garamond, Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Italiana&family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Italiana&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -63,7 +63,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Subtle Ambient Warm Camel Glow Mesh */
+        /* Ambient Soft Glow */
         .ambient-glow {
             position: fixed;
             top: 50%;
@@ -76,7 +76,7 @@
             z-index: 0;
         }
 
-        /* Canvas Particle Layer */
+        /* Floating Stars/Particles Canvas */
         #particleCanvas {
             position: fixed;
             top: 0;
@@ -87,16 +87,16 @@
             z-index: 1;
         }
 
-        /* Minimal Chic Container */
+        /* Chic Glassmorphism Container */
         .minimal-card {
-            background: rgba(250, 247, 242, 0.88);
+            background: rgba(250, 247, 242, 0.90);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(193, 154, 107, 0.3);
-            box-shadow: 0 20px 50px -15px rgba(110, 71, 35, 0.07);
+            box-shadow: 0 25px 60px -15px rgba(110, 71, 35, 0.08);
         }
 
-        /* Custom Radio Selection Pill */
+        /* RSVP Radio Pill Buttons */
         .rsvp-pill input:checked + label {
             background: linear-gradient(135deg, #8B5E34 0%, #6E4723 100%);
             color: #FAF7F2;
@@ -104,7 +104,114 @@
             box-shadow: 0 6px 20px rgba(139, 94, 52, 0.25);
         }
 
-        /* Custom Scrollbar */
+        /* 3D Envelope Container */
+        .envelope-wrapper {
+            perspective: 1000px;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            height: 250px;
+            background: #EAE0D5;
+            border-radius: 14px;
+            box-shadow: 0 25px 50px -12px rgba(82, 51, 23, 0.2);
+            border: 1px solid rgba(193, 154, 107, 0.4);
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .envelope:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px -12px rgba(82, 51, 23, 0.28);
+        }
+
+        /* Envelope Top Flap */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 190px solid transparent;
+            border-right: 190px solid transparent;
+            border-top: 130px solid #D6BC9B;
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3;
+        }
+
+        @media (max-width: 400px) {
+            .envelope-flap {
+                border-left-width: 165px;
+                border-right-width: 165px;
+                border-top-width: 115px;
+            }
+            .envelope {
+                max-width: 330px;
+                height: 230px;
+            }
+        }
+
+        /* Envelope Pocket Effect */
+        .envelope-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(245, 239, 235, 0.3) 0%, #EAE0D5 100%);
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+            clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+            z-index: 2;
+        }
+
+        /* Relief F&S Wax Seal */
+        .wax-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 68px;
+            height: 68px;
+            background: radial-gradient(circle, #A37C4E 0%, #6E4723 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(82, 51, 23, 0.38), inset 0 2px 4px rgba(255, 255, 255, 0.25);
+            border: 2px solid #C19A6B;
+            z-index: 4;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+        }
+
+        /* Envelope Opening State */
+        .envelope-container.open .wax-seal {
+            transform: translate(-50%, -50%) scale(1.4);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .envelope-container.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-container.open {
+            animation: fadeOutUp 0.8s forwards 0.5s ease-in-out;
+        }
+
+        @keyframes fadeOutUp {
+            to {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-40px) scale(0.95);
+            }
+        }
+
+        /* Custom Subtle Scrollbar */
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -117,24 +224,43 @@
         }
     </style>
 </head>
-<body class="relative min-h-screen">
+<body class="relative min-h-screen flex flex-col justify-center items-center">
 
-    <!-- AMBIENT BACKGROUND LAYER -->
+    <!-- AMBIENT BACKGROUND -->
     <div class="ambient-glow"></div>
     <canvas id="particleCanvas"></canvas>
 
-    <!-- FLOATING AUDIO CONTROL -->
+    <!-- FLOATING MUSIC PLAYER BUTTON -->
     <div class="fixed top-6 right-6 z-50">
-        <button id="musicBtn" onclick="toggleAudio()" class="w-11 h-11 rounded-full bg-chic-50/90 backdrop-blur-md border border-camel-300/30 text-camel-600 shadow-sm hover:shadow-md flex items-center justify-center transition-all duration-300 active:scale-95">
+        <button id="musicBtn" onclick="toggleAudio()" title="Musiqini oxut / dayandır" class="w-11 h-11 rounded-full bg-chic-50/90 backdrop-blur-md border border-camel-300/30 text-camel-600 shadow-sm hover:shadow-md flex items-center justify-center transition-all duration-300 active:scale-95">
             <i id="musicIcon" class="fa-solid fa-music text-xs"></i>
         </button>
     </div>
 
-    <!-- MAIN APP WRAPPER -->
-    <main class="max-w-md mx-auto px-4 sm:px-6 py-8 sm:py-12 relative z-10 flex flex-col min-h-screen justify-center">
+    <!-- ELEGANT ENVELOPE OVERLAY -->
+    <div id="envelopeOverlay" class="fixed inset-0 z-40 flex flex-col items-center justify-center p-4 bg-chic-50/95 backdrop-blur-md transition-opacity duration-700">
+        <div class="envelope-container flex flex-col items-center" onclick="openEnvelope()">
+            
+            <div class="envelope mb-6">
+                <div class="envelope-flap"></div>
+                <div class="envelope-pocket"></div>
+                <div class="wax-seal">
+                    <span class="font-editorial text-chic-50 text-2xl tracking-tighter select-none font-semibold">F&S</span>
+                </div>
+            </div>
 
-        <!-- SINGLE CONTINUOUS ELEGANT CARD -->
-        <div class="minimal-card rounded-3xl p-6 sm:p-10 shadow-2xl space-y-10 relative my-auto">
+            <div class="text-center space-y-2 animate-pulse">
+                <p class="text-[10px] uppercase tracking-[0.35em] text-camel-600 font-semibold">Açmaq üçün toxunun</p>
+                <i class="fa-solid fa-angle-down text-xs text-camel-400"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN INVITATION CARD -->
+    <main id="mainContent" class="max-w-md w-full mx-auto px-4 sm:px-6 py-8 sm:py-12 relative z-10 flex flex-col min-h-screen justify-center opacity-0 transition-all duration-1000 transform translate-y-6">
+
+        <!-- CONTINUOUS UNIFIED GLASS CARD -->
+        <div class="minimal-card rounded-3xl p-6 sm:p-10 shadow-2xl space-y-9 relative my-auto">
 
             <!-- HEADER SECTION -->
             <header class="text-center pt-2">
@@ -145,26 +271,26 @@
                     Fuad <span class="font-serif italic font-light text-3xl sm:text-4xl text-camel-400">&</span> Sevinc
                 </h1>
 
-                <div class="w-10 h-[1px] bg-gradient-to-r from-transparent via-camel-300 to-transparent mx-auto my-5 opacity-70"></div>
+                <div class="w-12 h-[1px] bg-gradient-to-r from-transparent via-camel-300 to-transparent mx-auto my-5 opacity-80"></div>
 
-                <p class="font-editorial text-xl text-charcoal-800 tracking-wider">16 NOYABR 2026</p>
+                <p class="font-editorial text-2xl text-charcoal-800 tracking-wider">16 NOYABR 2026</p>
                 <p class="text-[11px] font-medium tracking-[0.2em] text-camel-500 uppercase mt-1">SAAT 18:00</p>
 
-                <!-- ANIMATED SCROLL DOWN INDICATOR -->
+                <!-- SCROLL DOWN INDICATOR -->
                 <div class="pt-8 flex flex-col items-center justify-center animate-bounce opacity-75">
                     <span class="text-[9px] uppercase tracking-[0.25em] text-camel-500 font-medium mb-1.5">Aşağı sürüşdürün</span>
                     <i class="fa-solid fa-chevron-down text-xs text-camel-400"></i>
                 </div>
             </header>
 
-            <!-- OPENING MESSAGE -->
+            <!-- INVITATION MESSAGE -->
             <section class="text-center pt-2 border-t border-camel-300/20">
                 <p class="font-serif text-lg sm:text-xl italic leading-relaxed text-charcoal-800 font-normal pt-6">
                     “Həyatımızın ən xoşbəxt gününün başlanğıcında yanımızda olmağınız və bu sevincə şərik çıxmağınız bizə sonsuz qürur verər.”
                 </p>
             </section>
 
-            <!-- MINIMAL COUNTDOWN TIMER -->
+            <!-- COUNTDOWN TIMER -->
             <section class="pt-2 border-t border-camel-300/20">
                 <p class="text-center text-[10px] uppercase tracking-[0.3em] text-camel-500 font-semibold mb-5">Toya qalan vaxt</p>
                 
@@ -188,7 +314,7 @@
                 </div>
             </section>
 
-            <!-- VENUE & NAVIGATION -->
+            <!-- VENUE & MAP BUTTONS -->
             <section class="pt-2 border-t border-camel-300/20 text-center space-y-4">
                 <div class="w-10 h-10 mx-auto rounded-full bg-chic-100 flex items-center justify-center text-camel-500 mt-4 border border-camel-300/30">
                     <i class="fa-solid fa-location-dot text-sm"></i>
@@ -199,7 +325,6 @@
                     <p class="text-[10px] uppercase tracking-[0.2em] text-camel-500 font-medium mt-0.5">Şadlıq Sarayı</p>
                 </div>
 
-                <!-- NAVIGATION BUTTONS -->
                 <div class="pt-2 flex flex-col gap-2.5">
                     <a href="https://maps.app.goo.gl/2Rz43K1oTn1Wor3w9?g_st=ic" target="_blank" rel="noopener"
                        class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-camel-500 to-camel-600 text-chic-50 text-[11px] font-medium tracking-widest uppercase hover:opacity-95 transition-all shadow-md flex items-center justify-center gap-2">
@@ -215,14 +340,33 @@
                 </div>
             </section>
 
-            <!-- MODERN MINIMAL RSVP -->
+            <!-- DRESS CODE SECTION -->
+            <section class="pt-2 border-t border-camel-300/20 text-center space-y-4">
+                <p class="text-[10px] uppercase tracking-[0.3em] text-camel-500 font-semibold mt-2">Dress Code • Geyim Forması</p>
+                
+                <div class="grid grid-cols-2 gap-3 pt-1">
+                    <div class="bg-chic-50/80 backdrop-blur-md p-3.5 rounded-2xl border border-camel-300/20 flex flex-col items-center justify-center space-y-1.5 shadow-sm">
+                        <span class="text-xl">🤵</span>
+                        <span class="text-[10px] uppercase tracking-wider text-camel-600 font-semibold">Kişilər</span>
+                        <span class="text-xs text-charcoal-800 font-serif italic">Smoking / Kostyum</span>
+                    </div>
+
+                    <div class="bg-chic-50/80 backdrop-blur-md p-3.5 rounded-2xl border border-camel-300/20 flex flex-col items-center justify-center space-y-1.5 shadow-sm">
+                        <span class="text-xl">👗</span>
+                        <span class="text-[10px] uppercase tracking-wider text-camel-600 font-semibold">Xanımlar</span>
+                        <span class="text-xs text-charcoal-800 font-serif italic">Ziyafət geyimi</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RSVP SECTION -->
             <section class="pt-2 border-t border-camel-300/20">
                 <div class="text-center mb-5 mt-2">
                     <h2 class="font-editorial text-2xl text-charcoal-900">İştirak Təsdiqi</h2>
                     <p class="text-[11px] text-camel-500 mt-1">Zəhmət olmasa gəlişinizi bizə bildirin</p>
                 </div>
 
-                <!-- SUCCESS MESSAGE CONTAINER -->
+                <!-- SUCCESS MESSAGE -->
                 <div id="rsvpSuccess" class="hidden text-center py-4 space-y-2">
                     <div id="rsvpStatusIcon" class="text-2xl text-camel-500"></div>
                     <h3 id="rsvpTitle" class="font-editorial text-xl text-charcoal-900"></h3>
@@ -232,7 +376,7 @@
                     </button>
                 </div>
 
-                <!-- RSVP FORM -->
+                <!-- FORM -->
                 <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-4">
                     <div>
                         <label for="guestName" class="block text-[10px] uppercase tracking-widest text-camel-500 font-semibold mb-2">Ad və Soyadınız</label>
@@ -280,7 +424,32 @@
     </audio>
 
     <script>
-        /* 1. PARTICLES ANIMATION (FLOATING CAMEL DUST) */
+        /* 1. ENVELOPE OPENING ANIMATION */
+        let isOpened = false;
+
+        function openEnvelope() {
+            if (isOpened) return;
+            isOpened = true;
+
+            const overlay = document.getElementById('envelopeOverlay');
+            const mainContent = document.getElementById('mainContent');
+            const container = document.querySelector('.envelope-container');
+
+            container.classList.add('open');
+
+            // Play background music
+            toggleAudio(true);
+
+            setTimeout(() => {
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    mainContent.classList.remove('opacity-0', 'translate-y-6');
+                }, 600);
+            }, 800);
+        }
+
+        /* 2. FLOATING CAMEL PARTICLES CANVAS */
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -331,7 +500,7 @@
         }
         animateParticles();
 
-        /* 2. LIVE COUNTDOWN TIMER TO NOVEMBER 16, 2026, 18:00 */
+        /* 3. COUNTDOWN TIMER TO NOVEMBER 16, 2026, 18:00 */
         const weddingTargetDate = new Date("November 16, 2026 18:00:00").getTime();
 
         function updateCountdown() {
@@ -359,27 +528,27 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        /* 3. AUDIO PLAYER CONTROL */
+        /* 4. BACKGROUND AUDIO CONTROLLER */
         const bgAudio = document.getElementById('bgAudio');
         const musicBtn = document.getElementById('musicBtn');
         const musicIcon = document.getElementById('musicIcon');
         let isPlaying = false;
 
-        function toggleAudio() {
-            if (isPlaying) {
+        function toggleAudio(forcePlay = false) {
+            if (isPlaying && !forcePlay) {
                 bgAudio.pause();
                 musicIcon.className = "fa-solid fa-music text-xs";
                 musicBtn.classList.remove('animate-pulse');
-            } else {
+                isPlaying = false;
+            } else if (!isPlaying) {
                 bgAudio.play().then(() => {
                     musicIcon.className = "fa-solid fa-pause text-xs";
                     musicBtn.classList.add('animate-pulse');
+                    isPlaying = true;
                 }).catch(e => console.log("Audio play blocked", e));
             }
-            isPlaying = !isPlaying;
         }
 
-        /* Auto-check saved RSVP */
         window.addEventListener('DOMContentLoaded', () => {
             const savedRSVP = localStorage.getItem('fs_rsvp');
             if (savedRSVP) {
@@ -388,7 +557,7 @@
             }
         });
 
-        /* RSVP CONFETTI COLOR CUSTOMIZATION */
+        /* 5. RSVP FORM SUBMISSION & CONFETTI */
         function submitRSVP(event) {
             event.preventDefault();
             const name = document.getElementById('guestName').value.trim();
@@ -405,7 +574,7 @@
             if (attendance === 'YES') {
                 if (typeof confetti === 'function') {
                     confetti({
-                        particleCount: 65,
+                        particleCount: 70,
                         spread: 60,
                         origin: { y: 0.7 },
                         colors: ['#C19A6B', '#8B5E34', '#A37C4E', '#EAE0D5']
