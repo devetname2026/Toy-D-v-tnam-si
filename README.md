@@ -24,20 +24,28 @@
             theme: {
                 extend: {
                     colors: {
-                        cream: {
-                            50: '#FAF9F6',
-                            100: '#F4F1EA',
-                            200: '#E8E2D5',
+                        beige: {
+                            50: '#FDFBF7',
+                            100: '#F7F2EA',
+                            200: '#EFE3D3',
+                            300: '#E2D1BC',
                         },
-                        charcoal: {
-                            900: '#121316',
-                            800: '#1D1F24',
-                            700: '#2A2D34',
+                        rosegold: {
+                            100: '#F7E7E0',
+                            300: '#E8B4A2',
+                            400: '#D89580',
+                            500: '#C47B62',
+                            600: '#B0634B',
                         },
                         gold: {
-                            300: '#DFCDA7',
-                            400: '#CDB687',
-                            500: '#B89D66',
+                            300: '#E6C280',
+                            400: '#D4AF37',
+                            500: '#C5A059',
+                            600: '#B87333',
+                        },
+                        charcoal: {
+                            900: '#231F20',
+                            800: '#3A3335',
                         }
                     },
                     fontFamily: {
@@ -52,14 +60,14 @@
 
     <style>
         body {
-            background-color: #FAF9F6;
-            color: #121316;
+            background: linear-gradient(135deg, #FDFBF7 0%, #F5EFE6 50%, #FAF0E6 100%);
+            color: #231F20;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Subtle Ambient Glow Mesh */
+        /* Subtle Ambient Rose Gold Glow Mesh */
         .ambient-glow {
             position: fixed;
             top: 50%;
@@ -67,7 +75,7 @@
             transform: translate(-50%, -50%);
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at 50% 30%, rgba(223, 205, 167, 0.18), rgba(250, 249, 246, 0) 70%);
+            background: radial-gradient(circle at 50% 35%, rgba(216, 149, 128, 0.22), rgba(245, 239, 230, 0) 70%);
             pointer-events: none;
             z-index: 0;
         }
@@ -85,19 +93,19 @@
 
         /* Minimal Card Container */
         .minimal-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(205, 182, 135, 0.25);
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.03);
+            background: rgba(253, 251, 247, 0.82);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(216, 149, 128, 0.3);
+            box-shadow: 0 15px 50px -15px rgba(184, 115, 51, 0.08);
         }
 
         /* Custom Radio Selection Pill */
         .rsvp-pill input:checked + label {
-            background-color: #121316;
-            color: #FAF9F6;
-            border-color: #121316;
-            box-shadow: 0 4px 20px rgba(18, 19, 22, 0.15);
+            background: linear-gradient(135deg, #C47B62 0%, #B0634B 100%);
+            color: #FDFBF7;
+            border-color: #B0634B;
+            box-shadow: 0 6px 20px rgba(196, 123, 98, 0.25);
         }
 
         /* Custom Scrollbar */
@@ -105,10 +113,10 @@
             width: 4px;
         }
         ::-webkit-scrollbar-track {
-            background: #FAF9F6;
+            background: #FDFBF7;
         }
         ::-webkit-scrollbar-thumb {
-            background: #CDB687;
+            background: #D89580;
             border-radius: 4px;
         }
     </style>
@@ -121,7 +129,7 @@
 
     <!-- FLOATING AUDIO CONTROL -->
     <div class="fixed top-6 right-6 z-50">
-        <button id="musicBtn" onclick="toggleAudio()" class="w-11 h-11 rounded-full bg-white/80 backdrop-blur-md border border-black/5 text-charcoal-900 shadow-sm hover:shadow-md flex items-center justify-center transition-all duration-300 active:scale-95">
+        <button id="musicBtn" onclick="toggleAudio()" class="w-11 h-11 rounded-full bg-white/90 backdrop-blur-md border border-rosegold-400/20 text-rosegold-500 shadow-sm hover:shadow-md flex items-center justify-center transition-all duration-300 active:scale-95">
             <i id="musicIcon" class="fa-solid fa-music text-xs"></i>
         </button>
     </div>
@@ -134,77 +142,77 @@
 
             <!-- HEADER SECTION -->
             <header class="text-center pt-2">
-                <p class="text-[10px] uppercase tracking-[0.4em] text-gold-500 font-semibold mb-4">Toy Dəvətnaməsi</p>
+                <p class="text-[10px] uppercase tracking-[0.4em] text-rosegold-500 font-semibold mb-4">Toy Dəvətnaməsi</p>
                 
                 <!-- COUPLE NAMES -->
                 <h1 class="font-editorial text-5xl sm:text-6xl tracking-tight text-charcoal-900 leading-none mb-3">
-                    Fuad <span class="font-serif italic font-light text-3xl sm:text-4xl text-gold-500">&</span> Sevinc
+                    Fuad <span class="font-serif italic font-light text-3xl sm:text-4xl text-rosegold-400">&</span> Sevinc
                 </h1>
 
-                <div class="w-8 h-[1px] bg-gold-400 mx-auto my-5 opacity-60"></div>
+                <div class="w-10 h-[1px] bg-gradient-to-r from-transparent via-rosegold-400 to-transparent mx-auto my-5 opacity-70"></div>
 
                 <p class="font-editorial text-xl text-charcoal-800 tracking-wider">16 NOYABR 2026</p>
-                <p class="text-[11px] font-medium tracking-[0.2em] text-gray-400 uppercase mt-1">SAAT 18:00</p>
+                <p class="text-[11px] font-medium tracking-[0.2em] text-rosegold-500 uppercase mt-1">SAAT 18:00</p>
 
                 <!-- ANIMATED SCROLL DOWN INDICATOR -->
-                <div class="pt-8 flex flex-col items-center justify-center animate-bounce opacity-70">
-                    <span class="text-[9px] uppercase tracking-[0.25em] text-gray-400 font-medium mb-1.5">Aşağı sürüşdürün</span>
-                    <i class="fa-solid fa-chevron-down text-xs text-gold-500"></i>
+                <div class="pt-8 flex flex-col items-center justify-center animate-bounce opacity-75">
+                    <span class="text-[9px] uppercase tracking-[0.25em] text-rosegold-500 font-medium mb-1.5">Aşağı sürüşdürün</span>
+                    <i class="fa-solid fa-chevron-down text-xs text-rosegold-400"></i>
                 </div>
             </header>
 
             <!-- OPENING MESSAGE -->
-            <section class="text-center pt-2 border-t border-black/5">
+            <section class="text-center pt-2 border-t border-rosegold-300/20">
                 <p class="font-serif text-lg sm:text-xl italic leading-relaxed text-charcoal-800 font-normal pt-6">
                     “Həyatımızın ən xoşbəxt gününün başlanğıcında yanımızda olmağınız və bu sevincə şərik çıxmağınız bizə sonsuz qürur verər.”
                 </p>
             </section>
 
             <!-- MINIMAL COUNTDOWN TIMER -->
-            <section class="pt-2 border-t border-black/5">
-                <p class="text-center text-[10px] uppercase tracking-[0.3em] text-gray-400 font-semibold mb-5">Mərasimə Qalan Vaxt</p>
+            <section class="pt-2 border-t border-rosegold-300/20">
+                <p class="text-center text-[10px] uppercase tracking-[0.3em] text-rosegold-500 font-semibold mb-5">Mərasimə Qalan Vaxt</p>
                 
                 <div class="grid grid-cols-4 gap-2.5 text-center">
-                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-black/5">
-                        <span id="cd-days" class="font-editorial text-2xl text-charcoal-900 block font-normal">00</span>
-                        <span class="text-[8px] uppercase tracking-wider text-gray-400 mt-0.5 block">Gün</span>
+                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-rosegold-300/20 shadow-sm">
+                        <span id="cd-days" class="font-editorial text-2xl text-rosegold-600 block font-normal">00</span>
+                        <span class="text-[8px] uppercase tracking-wider text-rosegold-500 mt-0.5 block">Gün</span>
                     </div>
-                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-black/5">
-                        <span id="cd-hours" class="font-editorial text-2xl text-charcoal-900 block font-normal">00</span>
-                        <span class="text-[8px] uppercase tracking-wider text-gray-400 mt-0.5 block">Saat</span>
+                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-rosegold-300/20 shadow-sm">
+                        <span id="cd-hours" class="font-editorial text-2xl text-rosegold-600 block font-normal">00</span>
+                        <span class="text-[8px] uppercase tracking-wider text-rosegold-500 mt-0.5 block">Saat</span>
                     </div>
-                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-black/5">
-                        <span id="cd-minutes" class="font-editorial text-2xl text-charcoal-900 block font-normal">00</span>
-                        <span class="text-[8px] uppercase tracking-wider text-gray-400 mt-0.5 block">Dəq</span>
+                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-rosegold-300/20 shadow-sm">
+                        <span id="cd-minutes" class="font-editorial text-2xl text-rosegold-600 block font-normal">00</span>
+                        <span class="text-[8px] uppercase tracking-wider text-rosegold-500 mt-0.5 block">Dəq</span>
                     </div>
-                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-black/5">
-                        <span id="cd-seconds" class="font-editorial text-2xl text-charcoal-900 block font-normal">00</span>
-                        <span class="text-[8px] uppercase tracking-wider text-gray-400 mt-0.5 block">San</span>
+                    <div class="bg-white/70 backdrop-blur-md rounded-xl p-2.5 border border-rosegold-300/20 shadow-sm">
+                        <span id="cd-seconds" class="font-editorial text-2xl text-rosegold-600 block font-normal">00</span>
+                        <span class="text-[8px] uppercase tracking-wider text-rosegold-500 mt-0.5 block">San</span>
                     </div>
                 </div>
             </section>
 
             <!-- VENUE & NAVIGATION -->
-            <section class="pt-2 border-t border-black/5 text-center space-y-4">
-                <div class="w-10 h-10 mx-auto rounded-full bg-cream-100 flex items-center justify-center text-gold-500 mt-4">
+            <section class="pt-2 border-t border-rosegold-300/20 text-center space-y-4">
+                <div class="w-10 h-10 mx-auto rounded-full bg-rosegold-100 flex items-center justify-center text-rosegold-500 mt-4 border border-rosegold-300/30">
                     <i class="fa-solid fa-location-dot text-sm"></i>
                 </div>
                 
                 <div>
                     <h2 class="font-editorial text-2xl text-charcoal-900 tracking-wide">Golden Ring</h2>
-                    <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium mt-0.5">Şadlıq Sarayı</p>
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-rosegold-500 font-medium mt-0.5">Şadlıq Sarayı</p>
                 </div>
 
                 <!-- NAVIGATION BUTTONS -->
                 <div class="pt-2 flex flex-col gap-2.5">
                     <a href="https://maps.app.goo.gl/2Rz43K1oTn1Wor3w9?g_st=ic" target="_blank" rel="noopener"
-                       class="w-full py-3 px-4 rounded-xl bg-charcoal-900 text-cream-50 text-[11px] font-medium tracking-widest uppercase hover:bg-charcoal-800 transition-all flex items-center justify-center gap-2">
+                       class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-rosegold-500 to-rosegold-600 text-beige-50 text-[11px] font-medium tracking-widest uppercase hover:opacity-95 transition-all shadow-md flex items-center justify-center gap-2">
                         <i class="fa-brands fa-google text-xs"></i>
                         <span>Google Maps ilə Aç</span>
                     </a>
                     
                     <a href="https://waze.com/ul/htp5tb6n4b" target="_blank" rel="noopener"
-                       class="w-full py-3 px-4 rounded-xl bg-white border border-black/10 text-charcoal-900 text-[11px] font-medium tracking-widest uppercase hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                       class="w-full py-3 px-4 rounded-xl bg-white/90 border border-rosegold-300/40 text-charcoal-900 text-[11px] font-medium tracking-widest uppercase hover:bg-beige-50 transition-all flex items-center justify-center gap-2 shadow-sm">
                         <i class="fa-brands fa-waze text-sky-500 text-sm"></i>
                         <span>Waze Naviqasiya</span>
                     </a>
@@ -212,18 +220,18 @@
             </section>
 
             <!-- MODERN MINIMAL RSVP -->
-            <section class="pt-2 border-t border-black/5">
+            <section class="pt-2 border-t border-rosegold-300/20">
                 <div class="text-center mb-5 mt-2">
                     <h2 class="font-editorial text-2xl text-charcoal-900">İştirak Təsdiqi</h2>
-                    <p class="text-[11px] text-gray-400 mt-1">Zəhmət olmasa gəlişinizi bizə bildirin</p>
+                    <p class="text-[11px] text-rosegold-500 mt-1">Zəhmət olmasa gəlişinizi bizə bildirin</p>
                 </div>
 
                 <!-- SUCCESS MESSAGE CONTAINER -->
                 <div id="rsvpSuccess" class="hidden text-center py-4 space-y-2">
-                    <div id="rsvpStatusIcon" class="text-2xl text-gold-500"></div>
+                    <div id="rsvpStatusIcon" class="text-2xl text-rosegold-500"></div>
                     <h3 id="rsvpTitle" class="font-editorial text-xl text-charcoal-900"></h3>
-                    <p id="rsvpText" class="text-xs text-gray-500 font-light leading-relaxed"></p>
-                    <button onclick="resetRSVP()" class="text-[10px] text-gray-400 uppercase tracking-widest underline pt-2 hover:text-charcoal-900 transition-colors">
+                    <p id="rsvpText" class="text-xs text-rosegold-600 font-light leading-relaxed"></p>
+                    <button onclick="resetRSVP()" class="text-[10px] text-rosegold-400 uppercase tracking-widest underline pt-2 hover:text-rosegold-600 transition-colors">
                         Cavabı dəyişdir
                     </button>
                 </div>
@@ -231,43 +239,39 @@
                 <!-- RSVP FORM -->
                 <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-4">
                     <div>
-                        <label for="guestName" class="block text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-2">Ad və Soyadınız</label>
+                        <label for="guestName" class="block text-[10px] uppercase tracking-widest text-rosegold-500 font-semibold mb-2">Ad və Soyadınız</label>
                         <input type="text" id="guestName" required placeholder="Adınız və Soyadınız"
-                               class="w-full px-4 py-3 rounded-xl bg-white/80 border border-black/10 focus:border-charcoal-900 outline-none text-charcoal-900 text-xs placeholder-gray-300 transition-all">
+                               class="w-full px-4 py-3 rounded-xl bg-white/80 border border-rosegold-300/30 focus:border-rosegold-500 outline-none text-charcoal-900 text-xs placeholder-rosegold-300 transition-all shadow-sm">
                     </div>
 
                     <div>
-                        <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-2">Qərarınız</label>
+                        <label class="block text-[10px] uppercase tracking-widest text-rosegold-500 font-semibold mb-2">Qərarınız</label>
                         <div class="grid grid-cols-1 gap-2">
                             <div class="rsvp-pill">
                                 <input type="radio" id="attending" name="attendance" value="YES" checked class="hidden">
-                                <label for="attending" class="w-full py-3 px-4 rounded-xl border border-black/10 bg-white/50 text-charcoal-900 text-xs font-medium text-center block cursor-pointer transition-all">
-                                    Gələcəyəm
+                                <label for="attending" class="w-full py-3 px-4 rounded-xl border border-rosegold-300/30 bg-white/60 text-charcoal-900 text-xs font-medium text-center block cursor-pointer transition-all shadow-sm">
+                                    ✨ Gələcəyəm
                                 </label>
                             </div>
                             <div class="rsvp-pill">
                                 <input type="radio" id="notAttending" name="attendance" value="NO" class="hidden">
-                                <label for="notAttending" class="w-full py-3 px-4 rounded-xl border border-black/10 bg-white/50 text-gray-500 text-xs font-medium text-center block cursor-pointer transition-all">
-                                    Təəssüf ki, gələ bilməyəcəm
+                                <label for="notAttending" class="w-full py-3 px-4 rounded-xl border border-rosegold-300/30 bg-white/60 text-charcoal-800 text-xs font-medium text-center block cursor-pointer transition-all shadow-sm">
+                                    🤍 Təəssüf ki, gələ bilməyəcəm
                                 </label>
                             </div>
                         </div>
                     </div>
 
                     <button type="submit" 
-                            class="w-full py-3.5 rounded-xl bg-charcoal-900 text-cream-50 text-[11px] font-medium tracking-widest uppercase shadow-md hover:bg-charcoal-800 transition-all">
+                            class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rosegold-500 to-rosegold-600 text-beige-50 text-[11px] font-medium tracking-widest uppercase shadow-md hover:opacity-95 transition-all">
                         Təsdiq Et
                     </button>
                 </form>
             </section>
 
-            <!-- GOOGLE CALENDAR LINK & FOOTER -->
-            <footer class="pt-2 border-t border-black/5 text-center space-y-4 pb-2">
-                <button onclick="addToCalendar()" class="text-[11px] font-medium uppercase tracking-widest text-gray-400 hover:text-charcoal-900 transition-colors inline-flex items-center gap-2 pt-2">
-                    <i class="fa-regular fa-calendar-plus text-xs"></i>
-                    <span>Təqvimə Əlavə Et</span>
-                </button>
-                <p class="text-[10px] text-gray-400 uppercase tracking-widest pt-2">Fuad & Sevinc • 16 Noyabr 2026</p>
+            <!-- FOOTER -->
+            <footer class="pt-2 border-t border-rosegold-300/20 text-center pb-2">
+                <p class="text-[10px] text-rosegold-500 uppercase tracking-widest">Fuad & Sevinc • 16 Noyabr 2026</p>
             </footer>
 
         </div>
@@ -280,7 +284,7 @@
     </audio>
 
     <script>
-        /* 1. PARTICLES ANIMATION (MINIMAL FLOATING DUST) */
+        /* 1. PARTICLES ANIMATION (FLOATING ROSE GOLD DUST) */
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -299,7 +303,7 @@
                 this.size = Math.random() * 1.8 + 0.4;
                 this.speedY = -(Math.random() * 0.3 + 0.1);
                 this.speedX = (Math.random() - 0.5) * 0.2;
-                this.opacity = Math.random() * 0.4 + 0.1;
+                this.opacity = Math.random() * 0.45 + 0.15;
             }
             update() {
                 this.y += this.speedY;
@@ -310,14 +314,14 @@
                 }
             }
             draw() {
-                ctx.fillStyle = `rgba(184, 157, 102, ${this.opacity})`;
+                ctx.fillStyle = `rgba(216, 149, 128, ${this.opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 40; i++) {
             particles.push(new Particle());
         }
 
@@ -395,10 +399,10 @@
             if (attendance === 'YES') {
                 if (typeof confetti === 'function') {
                     confetti({
-                        particleCount: 60,
+                        particleCount: 65,
                         spread: 60,
                         origin: { y: 0.7 },
-                        colors: ['#B89D66', '#CDB687', '#121316']
+                        colors: ['#D89580', '#C47B62', '#E6C280', '#F7E7E0']
                     });
                 }
                 icon.innerHTML = '<i class="fa-solid fa-sparkles"></i>';
@@ -432,14 +436,6 @@
                 } catch(e) {}
             }
         });
-
-        /* 5. ADD TO CALENDAR */
-        function addToCalendar() {
-            const title = encodeURIComponent("Fuad & Sevinc — Toy Mərasimi");
-            const details = encodeURIComponent("Golden Ring Şadlıq Sarayı, Saat 18:00");
-            const location = encodeURIComponent("Golden Ring Şadlıq Sarayı, Bakı");
-            window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261116T140000Z/20261116T190000Z&details=${details}&location=${location}`, '_blank');
-        }
     </script>
 </body>
 </html>
