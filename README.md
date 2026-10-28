@@ -620,8 +620,8 @@
             <p style="font-size: 11px; color: var(--text-muted);">Bəkir Çobanzadə küç. 332, Bakı</p>
          
             <div class="btn-group">
-                <a href="https://maps.app.goo.gl/dsJuvUECAsK6DVbp9" target="_blank" class="btn">Google Maps</a>
-                <a href="https://ul.waze.com/ul?venue_id=32702868.326766537.12365347&overview=yes" target="_blank" class="btn btn-outline">Waze</a>
+                <a href="https://maps.app.goo.gl/fGDo9Pi52LuR53FUA?g_st=iw" target="_blank" class="btn">Google Maps</a>
+                <a href="https://waze.com/ul/htp5tb6n4b" target="_blank" class="btn btn-outline">Waze</a>
             </div>
 
             <div class="section-divider"></div>
