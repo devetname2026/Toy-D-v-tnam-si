@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toy Dəvətnaməsi — Fuad & Sevinc</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <title>Fuad & Sevinc - Toy Dəvətnaməsi</title>
+    <!-- Estetik Şriftlər -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fdfbf7;
+            --bg-color: #f6f2eb;
+            --primary-color: #2c2420;
+            --accent-gold: #c5a059;
+            --accent-gold-light: #e5cb90;
             --card-bg: #ffffff;
-            --envelope-color: #f7f2e8;
-            --envelope-inner: #efe6d5;
-            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #fff3a7 35%, #aa771c 70%, #fbf5b7 100%);
-            --gold-solid: #c5a059;
-            --gold-soft: rgba(197, 160, 89, 0.25);
-            --text-main: #2b2b2b;
-            --text-muted: #888888;
+            --text-muted: #5e564e;
+            --envelope-bg: #f0e8d8;
         }
 
         * {
@@ -27,727 +26,1766 @@
         body {
             background-color: var(--bg-color);
             font-family: 'Montserrat', sans-serif;
-            color: var(--text-main);
+            color: var(--primary-color);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px 10px;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* ULDUZ ANİMASİYASI */
-        #stars-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-            overflow: hidden;
-        }
-
-        .star {
-            position: absolute;
-            background: radial-gradient(circle, #fff 10%, #c5a059 80%);
-            border-radius: 50%;
-            opacity: 0;
-            animation: twinkleFall linear infinite;
-        }
-
-        @keyframes twinkleFall {
-            0% { transform: translateY(-10px) scale(0.3); opacity: 0; }
-            30% { opacity: 0.7; }
-            70% { opacity: 0.7; }
-            100% { transform: translateY(105vh) scale(0.8); opacity: 0; }
-        }
-
-        /* 3D LUX ZƏRF WRAPPER */
+        /* ----- INTERAKTIV ZƏRF SƏHİFƏSİ ----- */
         #envelope-wrapper {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(246, 242, 235, 0.98);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            perspective: 1500px;
-            background: radial-gradient(circle, #ffffff 0%, #f4ede0 100%);
-            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1) 0.8s, visibility 1s 0.8s;
+            transition: opacity 1s ease, visibility 1s ease;
         }
 
-        #envelope-wrapper.fade-out {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        /* BÖYÜK ZƏRF */
-        .envelope-3d {
+        .envelope {
+            width: 320px;
+            height: 220px;
+            background-color: var(--envelope-bg);
+            border: 2px solid var(--accent-gold-light);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
             position: relative;
-            width: 95vw;
-            max-width: 640px;
-            height: 420px;
-            background: var(--envelope-color);
-            border-radius: 16px;
-            box-shadow: 0 40px 80px rgba(197, 160, 89, 0.18), 0 15px 35px rgba(0,0,0,0.06);
-            border: 1px solid rgba(197, 160, 89, 0.35);
             display: flex;
             justify-content: center;
             align-items: center;
-            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: transform 0.4s ease;
         }
 
-        .envelope-inner-frame {
-            position: absolute;
-            inset: 14px;
-            border: 1px solid rgba(197, 160, 89, 0.25);
-            border-radius: 12px;
-            pointer-events: none;
+        .envelope:hover {
+            transform: scale(1.03);
+        }
+
+        /* Qızılı Möhür */
+        .wax-seal {
+            width: 75px;
+            height: 75px;
+            background: radial-gradient(circle, #e5cb90 0%, #c5a059 70%, #9e7b37 100%);
+            border-radius: 50%;
+            box-shadow: 0 6px 15px rgba(197, 160, 89, 0.4), inset 0 2px 4px rgba(255,255,255,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #b08d46;
             z-index: 2;
         }
 
-        /* BANT STRUKTURU VƏ DÜYÜN DİZAYNI */
-        .ribbon-horizontal-line {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 32px;
-            background: linear-gradient(180deg, #d4af37 0%, #fff3a7 40%, #aa771c 80%, #fbf5b7 100%);
-            transform: translateY(-50%);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            z-index: 12;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
+        .wax-seal span {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 2.2rem;
+            color: #2c2420;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.4);
         }
 
-        .bow-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 180px;
-            height: 100px;
-            z-index: 13;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-        }
-
-        .bow-loop-left {
-            position: absolute;
-            top: 22px;
-            left: 10px;
-            width: 65px;
-            height: 40px;
-            background: linear-gradient(135deg, #d4af37 0%, #fff3a7 50%, #aa771c 100%);
-            border-radius: 50px 10px 10px 50px;
-            transform: rotate(-12deg);
-            box-shadow: -4px 4px 10px rgba(0,0,0,0.15);
-        }
-
-        .bow-loop-right {
-            position: absolute;
-            top: 22px;
-            right: 10px;
-            width: 65px;
-            height: 40px;
-            background: linear-gradient(-135deg, #d4af37 0%, #fff3a7 50%, #aa771c 100%);
-            border-radius: 10px 50px 50px 10px;
-            transform: rotate(12deg);
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.15);
-        }
-
-        .bow-tail-left {
-            position: absolute;
-            top: 50px;
-            left: 35px;
-            width: 30px;
-            height: 60px;
-            background: linear-gradient(180deg, #d4af37 0%, #aa771c 100%);
-            clip-path: polygon(0 0, 100% 0, 80% 100%, 0 85%);
-            transform: rotate(15deg);
-            box-shadow: -2px 5px 8px rgba(0,0,0,0.12);
-        }
-
-        .bow-tail-right {
-            position: absolute;
-            top: 50px;
-            right: 35px;
-            width: 30px;
-            height: 60px;
-            background: linear-gradient(180deg, #d4af37 0%, #aa771c 100%);
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 20% 100%);
-            transform: rotate(-15deg);
-            box-shadow: 2px 5px 8px rgba(0,0,0,0.12);
-        }
-
-        /* ZƏRFİN YUXARI QAPAĞI */
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            clip-path: polygon(0 0, 50% 55%, 100% 0);
-            background: linear-gradient(180deg, #eaddc5 0%, var(--envelope-color) 100%);
-            transform-origin: top;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 10;
-            border-top: 1px solid rgba(197, 160, 89, 0.4);
-        }
-
-        /* ORTADAN ARALANAN LENT HİSSƏLƏRİ */
-        .envelope-side-left {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--envelope-color) 70%, var(--envelope-inner) 100%);
-            clip-path: polygon(0 0, 100% 50%, 0 100%);
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1) 0.4s;
-            z-index: 8;
-        }
-
-        .envelope-side-right {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(-90deg, var(--envelope-color) 70%, var(--envelope-inner) 100%);
-            clip-path: polygon(100% 0, 0 50%, 100% 100%);
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1) 0.4s;
-            z-index: 8;
-        }
-
-        .envelope-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--envelope-color);
-            clip-path: polygon(0 100%, 50% 50%, 100% 100%);
-            z-index: 7;
-        }
-
-        /* MÖHÜR VƏ DÜYÜN HİSSƏSİ */
-        .seal-wrapper {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 20;
-            cursor: pointer;
-            transition: transform 0.4s ease, opacity 0.4s ease;
-            text-align: center;
-        }
-
-        .seal-btn {
-            width: 85px;
-            height: 85px;
-            background: var(--gold-gradient);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 14px 35px rgba(197, 160, 89, 0.45), inset 0 0 10px rgba(255,255,255,0.9);
-            border: 3px solid #ffffff;
-            margin: 0 auto;
-            transition: transform 0.3s ease;
-        }
-
-        .seal-btn:hover { transform: scale(1.06); }
-
-        .seal-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 26px;
-            font-weight: 600;
-            color: #3b2805;
-            letter-spacing: 1.5px;
-        }
-
-        .tap-hint {
+        .envelope-text {
             margin-top: 25px;
-            font-size: 10px;
-            color: var(--gold-solid);
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
             letter-spacing: 3px;
             text-transform: uppercase;
-            font-weight: 500;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 8px 18px;
-            border-radius: 20px;
-            border: 1px solid var(--gold-soft);
-            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-            white-space: nowrap;
+            color: var(--accent-gold);
+            animation: pulse 1.8s infinite;
         }
 
-        /* ANİMASİYA MƏRHƏLƏLƏRİ */
-        #envelope-wrapper.open-flap .envelope-flap {
-            transform: rotateX(180deg);
-            z-index: 4;
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 0.5; transform: scale(0.98); }
         }
 
-        #envelope-wrapper.open-flap .seal-wrapper,
-        #envelope-wrapper.open-flap .ribbon-horizontal-line,
-        #envelope-wrapper.open-flap .bow-container {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        #envelope-wrapper.split-envelope .envelope-side-left {
-            transform: translateX(-120%);
-        }
-
-        #envelope-wrapper.split-envelope .envelope-side-right {
-            transform: translateX(120%);
-        }
-
-        /* ƏSAS DƏVƏTNAMƏ KART */
-        #main-card {
-            display: block;
-            opacity: 0;
-            transform: translateY(80px) scale(0.92);
-            width: 100%;
-            max-width: 480px;
+        /* ----- ƏSAS DƏVƏTNAMƏ KARTI ----- */
+        .invitation-card {
             background: var(--card-bg);
-            padding: 40px 25px;
-            margin: 20px auto;
-            border-radius: 16px;
-            box-shadow: 0 25px 55px rgba(197, 160, 89, 0.12);
+            max-width: 500px;
+            width: 100%;
+            padding: 50px 30px;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
+            border: 2px solid #f2e9d8;
             text-align: center;
-            border: 1px solid var(--gold-soft);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease;
-            z-index: 10;
             position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease;
         }
 
-        #main-card.show-card {
+        .invitation-card.show {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
-        .card-frame {
-            border: 1px solid var(--gold-soft);
-            padding: 25px 15px;
-            border-radius: 10px;
+        .invitation-card::before {
+            content: "";
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 12px;
+            pointer-events: none;
+            opacity: 0.6;
         }
 
-        .header-date {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
+        /* Musiqi idarəetmə düyməsi */
+        .music-player {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 10;
+        }
+
+        #music-btn {
+            background: #faf6ef;
+            border: 1px solid var(--accent-gold);
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .top-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
             letter-spacing: 5px;
-            color: var(--gold-solid);
-            font-weight: 600;
-        }
-
-        .sub-title {
-            font-size: 10px;
-            letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--text-muted);
-            margin-top: 5px;
-            margin-bottom: 20px;
-        }
-
-        .names-area {
-            margin: 18px 0;
-            padding: 12px 0;
-            border-top: 1px solid var(--gold-soft);
-            border-bottom: 1px solid var(--gold-soft);
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-weight: 600;
         }
 
         .names {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 36px;
-            font-weight: 400;
-            color: #222;
-            font-style: italic;
-        }
-
-        .names span {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            font-style: normal;
-            color: var(--gold-solid);
-            margin: 0 8px;
-        }
-
-        .description { font-size: 12px; line-height: 1.8; color: #555; margin: 18px 0; font-weight: 300; }
-        .section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--gold-solid), transparent); margin: 25px auto; width: 60%; opacity: 0.4; }
-        .section-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold-solid); margin-bottom: 12px; font-weight: 600; }
-
-        /* GERYƏ SAYIM */
-        .countdown { display: flex; justify-content: center; gap: 12px; }
-        .time-box {
-            background: #fff;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid var(--gold-soft);
-            box-shadow: 0 4px 10px rgba(197, 160, 89, 0.08);
-        }
-        .time-box span { font-size: 14px; font-weight: 500; color: var(--gold-solid); }
-        .time-box label { font-size: 7px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
-
-        /* AŞAĞI SÜRÜŞDÜR İŞARƏSİ VƏ YAZISI */
-        .scroll-indicator {
-            margin-top: 18px;
-            font-size: 11px;
-            color: var(--gold-solid);
-            letter-spacing: 1.5px;
-            font-weight: 400;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator .arrow {
-            font-size: 14px;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(6px); }
-            60% { transform: translateY(3px); }
-        }
-
-        /* TOY PROQRAMI */
-        .program-list { text-align: left; max-width: 280px; margin: 0 auto; }
-        .program-item {
-            display: flex;
-            align-items: center;
+            font-family: 'Pinyon Script', cursive;
+            font-size: 4.5rem;
+            color: var(--accent-gold);
             margin-bottom: 10px;
-            padding: 8px 10px;
-            background: rgba(247, 244, 239, 0.5);
-            border-radius: 6px;
-            border-left: 2px solid var(--gold-solid);
+            line-height: 1.1;
         }
-        .program-time { font-size: 12px; font-weight: 500; color: var(--gold-solid); width: 55px; }
-        .program-desc { font-size: 12px; color: var(--text-main); }
 
-        /* GEYİM KODU */
-        .dress-code { display: flex; gap: 10px; }
-        .dress-item {
-            flex: 1;
-            background: rgba(247, 244, 239, 0.4);
-            padding: 10px 5px;
-            border-radius: 6px;
-            border: 1px solid rgba(197, 160, 89, 0.15);
+        .divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            margin: 15px auto 25px auto;
         }
-        .dress-item h4 { font-size: 10px; text-transform: uppercase; color: var(--gold-solid); }
-        .dress-item p { font-size: 11px; color: #444; margin-top: 2px; }
 
-        /* DÜYMƏLƏR */
-        .btn-group { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
-        .btn {
-            background: var(--gold-solid);
-            color: #fff;
-            padding: 9px 18px;
-            text-decoration: none;
-            border-radius: 20px;
-            font-size: 11px;
+        .invitation-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .details-box {
+            background-color: #faf6ef;
+            border: 1px solid #ebd8b6;
+            padding: 22px 15px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .event-hall {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
             letter-spacing: 1px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .event-date-time {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        .event-address {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Program / Agenda */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #ffffff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-gold);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .timeline-time {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-size: 0.95rem;
+            min-width: 55px;
+        }
+
+        .timeline-desc {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+        }
+
+        /* Countdown */
+        .timer-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(197, 160, 89, 0.25);
-            transition: all 0.2s;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-weight: 600;
         }
-        .btn:hover { background: #b08b46; }
-        .btn-outline { background: transparent; color: var(--gold-solid); border: 1px solid var(--gold-solid); box-shadow: none; }
 
-        /* FORM */
-        .rsvp-options { display: flex; gap: 8px; margin-bottom: 10px; }
-        .rsvp-btn {
-            flex: 1;
-            padding: 9px;
-            border: 1px solid var(--gold-soft);
-            background: #fff;
-            color: var(--text-main);
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 11px;
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 35px;
         }
-        .rsvp-btn.active { background: var(--gold-solid); color: #fff; border-color: var(--gold-solid); }
 
-        input, select, textarea {
+        .time-box {
+            background: linear-gradient(145deg, #ffffff, #f7efe2);
+            border: 1px solid var(--accent-gold-light);
+            color: var(--primary-color);
+            padding: 10px 8px;
+            border-radius: 10px;
+            min-width: 65px;
+        }
+
+        .time-box span {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .time-box label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* Forms */
+        .section-box {
+            background-color: #faf6ef;
+            border: 1px solid #ebd8b6;
+            padding: 22px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .form-input, .form-select, .form-textarea {
             width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid rgba(197, 160, 89, 0.25);
-            border-radius: 6px;
-            font-size: 12px;
-            background: rgba(255, 255, 255, 0.9);
-            font-family: 'Montserrat', sans-serif;
+            padding: 10px 12px;
+            border: 1px solid #dcc8a4;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            background-color: #ffffff;
+            color: var(--primary-color);
             outline: none;
         }
 
-        .success-msg {
-            display: none;
-            background: #f0f7f4;
-            color: #2d6a4f;
+        .form-textarea {
+            resize: vertical;
+            height: 75px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .btn-action {
+            width: 100%;
+            background-color: var(--accent-gold);
+            color: #ffffff;
+            border: none;
             padding: 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            margin-top: 12px;
-            border: 1px solid #b7e4c7;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .map-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-map {
+            flex: 1;
+            display: block;
+            padding: 12px 10px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            transition: all 0.3s ease;
+        }
+
+        .btn-map:hover {
+            background-color: var(--accent-gold);
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
 
-    <audio id="bg-music" loop preload="auto">
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
-
-    <div id="stars-container"></div>
-
-    <!-- LUX BÖYÜK ZƏRF DÜYÜNLÜ BANT İLƏ -->
+    <!-- INTERAKTIV ZƏRF SƏHİFƏSİ -->
     <div id="envelope-wrapper">
-        <div class="envelope-3d">
-            <div class="envelope-inner-frame"></div>
-            <div class="envelope-flap"></div>
-            <div class="envelope-side-left"></div>
-            <div class="envelope-side-right"></div>
-            <div class="envelope-bottom"></div>
-
-            <!-- QIZILI HORİZONTAL BANT QATI -->
-            <div class="ribbon-horizontal-line"></div>
-
-            <!-- DÜYÜN DİZAYNI -->
-            <div class="bow-container">
-                <div class="bow-loop-left"></div>
-                <div class="bow-loop-right"></div>
-                <div class="bow-tail-left"></div>
-                <div class="bow-tail-right"></div>
-            </div>
-
-            <div class="seal-wrapper" onclick="startUnfoldSequence()">
-                <div class="seal-btn">
-                    <span class="seal-text">N&L</span>
-                </div>
-                <div class="tap-hint">Açmaq üçün toxunun</div>
+        <div class="envelope" onclick="openEnvelope()">
+            <div class="wax-seal">
+                <span>F&S</span>
             </div>
         </div>
+        <div class="envelope-text">✉️ Açmaq üçün toxunun</div>
     </div>
 
-    <!-- ƏSAS DƏVƏTNAMƏ KART -->
-    <div id="main-card">
-        <div class="card-frame">
-            <div class="header-date">10 . 10 . 2026</div>
-            <div class="sub-title">Xoş gəldiniz</div>
-            
-            <div class="names-area">
-                <div class="names">Nizami <span>&</span> Lətifə</div>
-            </div>
+    <!-- DƏVƏTNAMƏ KARTI -->
+    <div class="invitation-card" id="card">
+        
+        <div class="music-player">
+            <button id="music-btn" onclick="toggleMusic()">🔊 Musiqini Dayandır</button>
+            <audio id="bg-music" loop>
+                <source src="musiqi.mp3" type="audio/mpeg">
+            </audio>
+        </div>
 
-            <p class="description">
-                Həyatımızın ən xüsusi gününü siz dəyərli doğmalarımızla bölüşməkdən hüdudsuz xoşbəxtlik duyarıq.
-            </p>
+        <div class="top-subtitle">Toy Dəvətnaməsi</div>
+        <h1 class="names">Fuad & Sevinc</h1>
+        <div class="divider"></div>
+        
+        <p class="invitation-text">
+            Həyatımızın bu ən özəl və unudulmaz günündə – yeni ailəmizin təməlini qoyarkən siz dəyərli qonaqlarımızı yanımızda görməkdən böyük şadlıq duyarıq.
+        </p>
 
-            <div class="section-divider"></div>
+        <div class="details-box">
+            <div class="event-hall">GOLDEN RING ŞADLIQ SARAYI</div>
+            <div class="event-date-time">16 NOYABR 2026 | SAAT: 18:00</div>
+        </div>
 
-            <div class="section-title">Toya qalan vaxt</div>
-            <div class="countdown">
-                <div class="time-box"><span id="days">00</span><label>Gün</label></div>
-                <div class="time-box"><span id="hours">00</span><label>Saat</label></div>
-                <div class="time-box"><span id="minutes">00</span><label>Dəqiqə</label></div>
-                <div class="time-box"><span id="seconds">00</span><label>Saniyə</label></div>
-            </div>
-
-            <!-- DAVAMI ÜÇÜN AŞAĞI SÜRÜŞDÜRÜN BÖLMƏSİ -->
-            <div class="scroll-indicator">
-                <span>Davamı üçün aşağıya sürüşdürün</span>
-                <span class="arrow">⇩</span>
-            </div>
-
-            <div class="section-divider"></div>
-
-            <div class="section-title">Toy Proqramı</div>
-            <div class="program-list">
-                <div class="program-item">
-                    <div class="program-time">18:00</div>
-                    <div class="program-desc">Qonaqların qarşılanması</div>
+        <div class="section-box">
+            <div class="section-title">✨ TƏDBİR PROQRAMI</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">18:00</div>
+                    <div class="timeline-desc">Qonaqların qarşılanması</div>
                 </div>
-                <div class="program-item">
-                    <div class="program-time">19:00</div>
-                    <div class="program-desc">Bəy və Gəlinin gəlişi</div>
+                <div class="timeline-item">
+                    <div class="timeline-time">19:00</div>
+                    <div class="timeline-desc">Bəy və Gəlinin gəlişi</div>
                 </div>
-                <div class="program-item">
-                    <div class="program-time">20:00</div>
-                    <div class="program-desc">Şam yeməyi və Təbriklər</div>
+                <div class="timeline-item">
+                    <div class="timeline-time">20:30</div>
+                    <div class="timeline-desc">Şou proqram və rəqslər</div>
                 </div>
-                <div class="program-item">
-                    <div class="program-time">22:00</div>
-                    <div class="program-desc">Tort kəsilməsi mərasimi</div>
-                </div>
-                <div class="program-item">
-                    <div class="program-time">23:00</div>
-                    <div class="program-desc">Şou proqramı və Yekun</div>
+                <div class="timeline-item">
+                    <div class="timeline-time">22:30</div>
+                    <div class="timeline-desc">Tort kəsilməsi mərasimi</div>
                 </div>
             </div>
+        </div>
 
-            <div class="section-divider"></div>
+        <div class="timer-title">TƏDBİRƏ QALAN VAXT</div>
+        <div id="countdown">
+            <div class="time-box"><span id="days">00</span><label>Gün</label></div>
+            <div class="time-box"><span id="hours">00</span><label>Saat</label></div>
+            <div class="time-box"><span id="minutes">00</span><label>Dəq</label></div>
+            <div class="time-box"><span id="seconds">00</span><label>San</label></div>
+        </div>
 
-            <div class="section-title">Geyim Kodu</div>
-            <div class="dress-code">
-                <div class="dress-item">
-                    <h4>Kişilər</h4>
-                    <p>Kostyum / Smoking</p>
-                </div>
-                <div class="dress-item">
-                    <h4>Xanımlar</h4>
-                    <p>Ziyafət geyimi</p>
+        <!-- RSVP -->
+        <div class="section-box">
+            <div class="section-title">✉️ İŞTİRAK TƏSDİQİ (RSVP)</div>
+            <div class="form-group">
+                <label for="rsvp-name">Adınız və Soyadınız:</label>
+                <input type="text" id="rsvp-name" class="form-input" placeholder="Məsələn: Əli Məmmədov">
+            </div>
+            <div class="form-group">
+                <label>İştirak durumunuz:</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="İştirak edəcəyəm" checked> İştirak edəcəyəm
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="Təəssüf ki, gələ bilməyəcəyəm"> Gələ bilməyəcəyəm
+                    </label>
                 </div>
             </div>
-
-            <div class="section-divider"></div>
-
-            <div class="section-title">Məkan və Tarix</div>
-            <p style="font-weight: 500; font-size: 13px;">16 Noyabr 2026, Saat 18:00</p>
-            <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Golden Ring Şadlıq Sarayı</p>
-            <p style="font-size: 11px; color: var(--text-muted);">Bəkir Çobanzadə küç. 332, Bakı</p>
-         
-            <div class="btn-group">
-                <a href="https://maps.app.goo.gl/fGDo9Pi52LuR53FUA?g_st=iw" target="_blank" class="btn">Google Maps</a>
-                <a href="https://waze.com/ul/htp5tb6n4b" target="_blank" class="btn btn-outline">Waze</a>
-            </div>
-
-            <div class="section-divider"></div>
-
-            <div class="section-title">İştirak Təsdiqi</div>
-            
-            <form id="rsvpForm">
-                <div class="rsvp-options">
-                    <button type="button" class="rsvp-btn active" onclick="selectAttendance('Gələcəyəm', this)">✓ Mənuniyyətlə iştirak edəcəyəm</button>
-                    <button type="button" class="rsvp-btn" onclick="selectAttendance('Gələ bilməyəcəyəm', this)">✕ Təəssüf ki, iştirak edə bilməyəcəyəm</button>
-                </div>
-                <input type="hidden" id="attendanceStatus" value="Gələcəyəm">
-                
-                <input type="text" id="guestName" placeholder="Adınız və Soyadınız" required>
-                <select id="guestCount" required>
-                    <option value="" disabled selected>Qonaq sayısı (özünüz daxil)</option>
+            <div class="form-group">
+                <label for="rsvp-count">Nəfər sayı (Özünüz daxil):</label>
+                <select id="rsvp-count" class="form-select">
                     <option value="1 nəfər">1 nəfər</option>
                     <option value="2 nəfər">2 nəfər</option>
                     <option value="3 nəfər">3 nəfər</option>
-                    <option value="4+ nəfər">4 və ya daha çox</option>
+                    <option value="4+ nəfər">4 və ya daha çox nəfər</option>
                 </select>
-                
-                <textarea id="guestWish" rows="3" placeholder="Təbrik və xoş arzularınız (könüllü)..."></textarea>
-                
-                <button type="submit" id="submitBtn" class="btn" style="width: 100%; margin-top: 10px;">Təsdiq Et və Göndər</button>
-            </form>
-
-            <div id="successMsg" class="success-msg">
-                ✨ Təşəkkür edirik! Cavabınız və xoş arzularınız uğurla qeydə alındı.
             </div>
+            <button class="btn-action" onclick="sendRSVP()">TƏSDİQİ GÖNDƏR (WHATSAPP)</button>
+        </div>
+
+        <!-- Arzular Bölməsi -->
+        <div class="section-box">
+            <div class="section-title">💌 BƏY VƏ GƏLİNƏ ARZULARINIZ</div>
+            <div class="form-group">
+                <label for="guest-name">Adınız və Soyadınız:</label>
+                <input type="text" id="guest-name" class="form-input" placeholder="Məsələn: Əli Məmmədov">
+            </div>
+            <div class="form-group">
+                <label for="guest-wish">Arzu və Təbrikiniz:</label>
+                <textarea id="guest-wish" class="form-textarea" placeholder="Ürək sözlərinizi buraya yazın..."></textarea>
+            </div>
+            <button class="btn-action" onclick="sendWish()">ARZUNU GÖNDƏR (WHATSAPP)</button>
+        </div>
+
+        <!-- Xəritə Düymələri -->
+        <div class="map-buttons">
+            <a href="https://maps.app.goo.gl/fGDo9Pi52LuR53FUA?g_st=iw" target="_blank" class="btn-map">🗺️ GOOGLE MAPS</a>
+            <a href="https://waze.com/ul/htp5tb6n4b" target="_blank" class="btn-map">🚗 WAZE İLƏ GƏL</a>
         </div>
     </div>
 
     <script>
-        function startUnfoldSequence() {
-            var wrapper = document.getElementById('envelope-wrapper');
-            var card = document.getElementById('main-card');
-            var music = document.getElementById('bg-music');
+        function openEnvelope() {
+            const wrapper = document.getElementById("envelope-wrapper");
+            const card = document.getElementById("card");
+            const music = document.getElementById("bg-music");
 
-            if (music) {
-                music.play().catch(function(err) { console.log("Musiqi dəstəklənmədi:", err); });
-            }
+            // Zərfi itiririk
+            wrapper.style.opacity = "0";
+            wrapper.style.visibility = "hidden";
 
-            wrapper.classList.add('open-flap');
+            // Kartı göstəririk
+            card.classList.add("show");
 
-            setTimeout(function() {
-                wrapper.classList.add('split-envelope');
-            }, 450);
-
-            setTimeout(function() {
-                card.classList.add('show-card');
-                createStars();
-            }, 850);
-
-            setTimeout(function() {
-                wrapper.classList.add('fade-out');
-            }, 1300);
+            // Musiqini başladırıq
+            music.play().catch(e => console.log("Musiqi səsi bloklandı"));
         }
 
-        function createStars() {
-            var container = document.getElementById('stars-container');
-            for (var i = 0; i < 20; i++) {
-                var star = document.createElement('div');
-                star.className = 'star';
-                var size = Math.random() * 5 + 3;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.animationDuration = (Math.random() * 4 + 3) + 's';
-                star.style.animationDelay = (Math.random() * 3) + 's';
-                container.appendChild(star);
+        // Tədbir tarixi: 16 Noyabr 2026, 18:00 (Noyabr = 10)
+        const eventDate = new Date(2026, 10, 16, 18, 0, 0).getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "<b style='color:var(--accent-gold)'>Tədbir Başladı!</b>";
+                return;
             }
-        }
 
-        var weddingDate = new Date("Oct 10, 2026 18:00:00").getTime();
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        setInterval(function() {
-            var now = new Date().getTime();
-            var distance = weddingDate - now;
-
-            if (distance > 0) {
-                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-                document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-                document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-                document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-            }
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
         }, 1000);
 
-        function selectAttendance(status, btn) {
-            document.getElementById('attendanceStatus').value = status;
-            var buttons = document.querySelectorAll('.rsvp-btn');
-            buttons.forEach(function(b) { b.classList.remove('active'); });
-            btn.classList.add('active');
+        const phone = "994000000000"; 
+
+        function sendRSVP() {
+            const name = document.getElementById("rsvp-name").value;
+            const attendance = document.querySelector('input[name="attendance"]:checked').value;
+            const count = document.getElementById("rsvp-count").value;
+            
+            if (!name.trim()) {
+                alert("Zəhmət olmasa adınızı qeyd edin.");
+                return;
+            }
+            
+            const message = encodeURIComponent("Salam! Mən " + name + ".\n\nİştirak Təsdiqi (RSVP):\nStatus: " + attendance + "\nNəfər sayı: " + count);
+            window.open("https://wa.me/" + phone + "?text=" + message, "_blank");
         }
 
-        var scriptURL = "https://script.google.com/macros/s/AKfycby_6u4N2Zp_mBVNDKdstAQp0G2v-qb8wqkAkcwDKZQwb_55fMCcb3Ncy8DAJw7oPdcg/exec";
-
-        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        function sendWish() {
+            const name = document.getElementById("guest-name").value;
+            const wish = document.getElementById("guest-wish").value;
             
-            var submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Göndərilir...";
+            if (!name.trim() || !wish.trim()) {
+                alert("Zəhmət olmasa adınızı və arzularınızı qeyd edin.");
+                return;
+            }
+            
+            const message = encodeURIComponent("Salam! Mən " + name + ".\n\nTəbrikim və arzum:\n" + wish);
+            window.open("https://wa.me/" + phone + "?text=" + message, "_blank");
+        }
 
-            var formData = new FormData();
-            formData.append('status', document.getElementById('attendanceStatus').value);
-            formData.append('name', document.getElementById('guestName').value);
-            formData.append('count', document.getElementById('guestCount').value);
-            formData.append('wish', document.getElementById('guestWish').value);
+        function toggleMusic() {
+            const music = document.getElementById("bg-music");
+            const btn = document.getElementById("music-btn");
 
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(function(response) {
-                    document.getElementById('rsvpForm').style.display = 'none';
-                    document.getElementById('successMsg').style.display = 'block';
-                })
-                .catch(function(error) {
-                    alert("Xəta baş verdi! Lütfən yenidən cəhd edin.");
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "Təsdiq Et və Göndər";
-                });
-        });
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = "🔊 Musiqini Dayandır";
+            } else {
+                music.pause();
+                btn.innerHTML = "🎵 Musiqini Qoş";
+            }
+        }
     </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuad & Sevinc - Toy Dəvətnaməsi</title>
+    <!-- Estetik Şriftlər -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f6f2eb;
+            --primary-color: #2c2420;
+            --accent-gold: #c5a059;
+            --accent-gold-light: #e5cb90;
+            --card-bg: #ffffff;
+            --text-muted: #5e564e;
+            --envelope-bg: #f0e8d8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px;
+            overflow-x: hidden;
+        }
+
+        /* ----- INTERAKTIV ZƏRF SƏHİFƏSİ ----- */
+        #envelope-wrapper {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(246, 242, 235, 0.98);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .envelope {
+            width: 320px;
+            height: 220px;
+            background-color: var(--envelope-bg);
+            border: 2px solid var(--accent-gold-light);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .envelope:hover {
+            transform: scale(1.03);
+        }
+
+        /* Qızılı Möhür */
+        .wax-seal {
+            width: 75px;
+            height: 75px;
+            background: radial-gradient(circle, #e5cb90 0%, #c5a059 70%, #9e7b37 100%);
+            border-radius: 50%;
+            box-shadow: 0 6px 15px rgba(197, 160, 89, 0.4), inset 0 2px 4px rgba(255,255,255,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #b08d46;
+            z-index: 2;
+        }
+
+        .wax-seal span {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 2.2rem;
+            color: #2c2420;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.4);
+        }
+
+        .envelope-text {
+            margin-top: 25px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 0.5; transform: scale(0.98); }
+        }
+
+        /* ----- ƏSAS DƏVƏTNAMƏ KARTI ----- */
+        .invitation-card {
+            background: var(--card-bg);
+            max-width: 500px;
+            width: 100%;
+            padding: 50px 30px;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
+            border: 2px solid #f2e9d8;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease;
+        }
+
+        .invitation-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .invitation-card::before {
+            content: "";
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 12px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Musiqi idarəetmə düyməsi */
+        .music-player {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 10;
+        }
+
+        #music-btn {
+            background: #faf6ef;
+            border: 1px solid var(--accent-gold);
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .top-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .names {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 4.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            margin: 15px auto 25px auto;
+        }
+
+        .invitation-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .details-box {
+            background-color: #faf6ef;
+            border: 1px solid #ebd8b6;
+            padding: 22px 15px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .event-hall {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .event-date-time {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        .event-address {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Program / Agenda */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #ffffff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-gold);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .timeline-time {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-size: 0.95rem;
+            min-width: 55px;
+        }
+
+        .timeline-desc {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+        }
+
+        /* Countdown */
+        .timer-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .time-box {
+            background: linear-gradient(145deg, #ffffff, #f7efe2);
+            border: 1px solid var(--accent-gold-light);
+            color: var(--primary-color);
+            padding: 10px 8px;
+            border-radius: 10px;
+            min-width: 65px;
+        }
+
+        .time-box span {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .time-box label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* Forms */
+        .section-box {
+            background-color: #faf6ef;
+            border: 1px solid #ebd8b6;
+            padding: 22px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dcc8a4;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            background-color: #ffffff;
+            color: var(--primary-color);
+            outline: none;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            height: 75px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .btn-action {
+            width: 100%;
+            background-color: var(--accent-gold);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .map-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-map {
+            flex: 1;
+            display: block;
+            padding: 12px 10px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            transition: all 0.3s ease;
+        }
+
+        .btn-map:hover {
+            background-color: var(--accent-gold);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INTERAKTIV ZƏRF SƏHİFƏSİ -->
+    <div id="envelope-wrapper">
+        <div class="envelope" onclick="openEnvelope()">
+            <div class="wax-seal">
+                <span>F&S</span>
+            </div>
+        </div>
+        <div class="envelope-text">✉️ Açmaq üçün toxunun</div>
+    </div>
+
+    <!-- DƏVƏTNAMƏ KARTI -->
+    <div class="invitation-card" id="card">
+        
+        <div class="music-player">
+            <button id="music-btn" onclick="toggleMusic()">🔊 Musiqini Dayandır</button>
+            <audio id="bg-music" loop>
+                <source src="musiqi.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <div class="top-subtitle">Toy Dəvətnaməsi</div>
+        <h1 class="names">Fuad & Sevinc</h1>
+        <div class="divider"></div>
+        
+        <p class="invitation-text">
+            Həyatımızın bu ən özəl və unudulmaz günündə – yeni ailəmizin təməlini qoyarkən siz dəyərli qonaqlarımızı yanımızda görməkdən böyük şadlıq duyarıq.
+        </p>
+
+        <div class="details-box">
+            <div class="event-hall">GOLDEN RING ŞADLIQ SARAYI</div>
+            <div class="event-date-time">16 NOYABR 2026 | SAAT: 18:00</div>
+        </div>
+
+        <div class="section-box">
+            <div class="section-title">✨ TƏDBİR PROQRAMI</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">18:00</div>
+                    <div class="timeline-desc">Qonaqların qarşılanması</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">19:00</div>
+                    <div class="timeline-desc">Bəy və Gəlinin gəlişi</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">20:30</div>
+                    <div class="timeline-desc">Şou proqram və rəqslər</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">22:30</div>
+                    <div class="timeline-desc">Tort kəsilməsi mərasimi</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timer-title">TƏDBİRƏ QALAN VAXT</div>
+        <div id="countdown">
+            <div class="time-box"><span id="days">00</span><label>Gün</label></div>
+            <div class="time-box"><span id="hours">00</span><label>Saat</label></div>
+            <div class="time-box"><span id="minutes">00</span><label>Dəq</label></div>
+            <div class="time-box"><span id="seconds">00</span><label>San</label></div>
+        </div>
+
+        <!-- RSVP -->
+        <div class="section-box">
+            <div class="section-title">✉️ İŞTİRAK TƏSDİQİ (RSVP)</div>
+            <div class="form-group">
+                <label for="rsvp-name">Adınız və Soyadınız:</label>
+                <input type="text" id="rsvp-name" class="form-input" placeholder="Məsələn: Əli Məmmədov">
+            </div>
+            <div class="form-group">
+                <label>İştirak durumunuz:</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="İştirak edəcəyəm" checked> İştirak edəcəyəm
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="Təəssüf ki, gələ bilməyəcəyəm"> Gələ bilməyəcəyəm
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="rsvp-count">Nəfər sayı (Özünüz daxil):</label>
+                <select id="rsvp-count" class="form-select">
+                    <option value="1 nəfər">1 nəfər</option>
+                    <option value="2 nəfər">2 nəfər</option>
+                    <option value="3 nəfər">3 nəfər</option>
+                    <option value="4+ nəfər">4 və ya daha çox nəfər</option>
+                </select>
+            </div>
+            <button class="btn-action" onclick="sendRSVP()">TƏSDİQİ GÖNDƏR (WHATSAPP)</button>
+        </div>
+
+        <!-- Arzular Bölməsi -->
+        <div class="section-box">
+            <div class="section-title">💌 BƏY VƏ GƏLİNƏ ARZULARINIZ</div>
+            <div class="form-group">
+                <label for="guest-name">Adınız və Soyadınız:</label>
+                <input type="text" id="guest-name" class="form-input" placeholder="Məsələn: Əli Məmmədov">
+            </div>
+            <div class="form-group">
+                <label for="guest-wish">Arzu və Təbrikiniz:</label>
+                <textarea id="guest-wish" class="form-textarea" placeholder="Ürək sözlərinizi buraya yazın..."></textarea>
+            </div>
+            <button class="btn-action" onclick="sendWish()">ARZUNU GÖNDƏR (WHATSAPP)</button>
+        </div>
+
+        <!-- Xəritə Düymələri -->
+        <div class="map-buttons">
+            <a href="https://maps.app.goo.gl/fGDo9Pi52LuR53FUA?g_st=iw" target="_blank" class="btn-map">🗺️ GOOGLE MAPS</a>
+            <a href="https://waze.com/ul/htp5tb6n4b" target="_blank" class="btn-map">🚗 WAZE İLƏ GƏL</a>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            const wrapper = document.getElementById("envelope-wrapper");
+            const card = document.getElementById("card");
+            const music = document.getElementById("bg-music");
+
+            // Zərfi itiririk
+            wrapper.style.opacity = "0";
+            wrapper.style.visibility = "hidden";
+
+            // Kartı göstəririk
+            card.classList.add("show");
+
+            // Musiqini başladırıq
+            music.play().catch(e => console.log("Musiqi səsi bloklandı"));
+        }
+
+        // Tədbir tarixi: 16 Noyabr 2026, 18:00 (Noyabr = 10)
+        const eventDate = new Date(2026, 10, 16, 18, 0, 0).getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "<b style='color:var(--accent-gold)'>Tədbir Başladı!</b>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }, 1000);
+
+        const phone = "994000000000"; 
+
+        function sendRSVP() {
+            const name = document.getElementById("rsvp-name").value;
+            const attendance = document.querySelector('input[name="attendance"]:checked').value;
+            const count = document.getElementById("rsvp-count").value;
+            
+            if (!name.trim()) {
+                alert("Zəhmət olmasa adınızı qeyd edin.");
+                return;
+            }
+            
+            const message = encodeURIComponent("Salam! Mən " + name + ".\n\nİştirak Təsdiqi (RSVP):\nStatus: " + attendance + "\nNəfər sayı: " + count);
+            window.open("https://wa.me/" + phone + "?text=" + message, "_blank");
+        }
+
+        function sendWish() {
+            const name = document.getElementById("guest-name").value;
+            const wish = document.getElementById("guest-wish").value;
+            
+            if (!name.trim() || !wish.trim()) {
+                alert("Zəhmət olmasa adınızı və arzularınızı qeyd edin.");
+                return;
+            }
+            
+            const message = encodeURIComponent("Salam! Mən " + name + ".\n\nTəbrikim və arzum:\n" + wish);
+            window.open("https://wa.me/" + phone + "?text=" + message, "_blank");
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById("bg-music");
+            const btn = document.getElementById("music-btn");
+
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = "🔊 Musiqini Dayandır";
+            } else {
+                music.pause();
+                btn.innerHTML = "🎵 Musiqini Qoş";
+            }
+        }
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuad & Sevinc - Toy Dəvətnaməsi</title>
+    <!-- Estetik Şriftlər -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f6f2eb;
+            --primary-color: #2c2420;
+            --accent-gold: #c5a059;
+            --accent-gold-light: #e5cb90;
+            --card-bg: #ffffff;
+            --text-muted: #5e564e;
+            --envelope-bg: #f0e8d8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px;
+            overflow-x: hidden;
+        }
+
+        /* ----- INTERAKTIV ZƏRF SƏHİFƏSİ ----- */
+        #envelope-wrapper {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(246, 242, 235, 0.98);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .envelope {
+            width: 320px;
+            height: 220px;
+            background-color: var(--envelope-bg);
+            border: 2px solid var(--accent-gold-light);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .envelope:hover {
+            transform: scale(1.03);
+        }
+
+        /* Qızılı Möhür */
+        .wax-seal {
+            width: 75px;
+            height: 75px;
+            background: radial-gradient(circle, #e5cb90 0%, #c5a059 70%, #9e7b37 100%);
+            border-radius: 50%;
+            box-shadow: 0 6px 15px rgba(197, 160, 89, 0.4), inset 0 2px 4px rgba(255,255,255,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #b08d46;
+            z-index: 2;
+        }
+
+        .wax-seal span {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 2.2rem;
+            color: #2c2420;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.4);
+        }
+
+        .envelope-text {
+            margin-top: 25px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 0.5; transform: scale(0.98); }
+        }
+
+        /* ----- ƏSAS DƏVƏTNAMƏ KARTI ----- */
+        .invitation-card {
+            background: var(--card-bg);
+            max-width: 500px;
+            width: 100%;
+            padding: 50px 30px;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
+            border: 2px solid #f2e9d8;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease;
+        }
+
+        .invitation-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .invitation-card::before {
+            content: "";
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 12px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Musiqi idarəetmə düyməsi */
+        .music-player {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 10;
+        }
+
+        #music-btn {
+            background: #faf6ef;
+            border: 1px solid var(--accent-gold);
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .top-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .names {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 4.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            margin: 15px auto 25px auto;
+        }
+
+        .invitation-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .details-box {
+            background-color: #faf6ef;
+            border: 1px solid #ebd8b6;
+            padding: 22px 15px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .event-hall {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .event-date-time {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        .event-address {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Program / Agenda */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #ffffff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-gold);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .timeline-time {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-size: 0.95rem;
+            min-width: 55px;
+        }
+
+        .timeline-desc {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+        }
+
+        /* Countdown */
+        .timer-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .time-box {
+            background: linear-gradient(145deg, #ffffff, #f7efe2);
+            border: 1px solid var(--accent-gold-light);
+            color: var(--primary-color);
+            padding: 10px 8px;
+            border-radius: 10px;
+            min-width: 65px;
+        }
+
+        .time-box span {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .time-box label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* Forms */
+        .section-box {
+            background-color: #faf6ef;
+            border: 1px solid #ebd8b6;
+            padding: 22px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dcc8a4;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            background-color: #ffffff;
+            color: var(--primary-color);
+            outline: none;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            height: 75px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .btn-action {
+            width: 100%;
+            background-color: var(--accent-gold);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .map-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-map {
+            flex: 1;
+            display: block;
+            padding: 12px 10px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            transition: all 0.3s ease;
+        }
+
+        .btn-map:hover {
+            background-color: var(--accent-gold);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INTERAKTIV ZƏRF SƏHİFƏSİ -->
+    <div id="envelope-wrapper">
+        <div class="envelope" onclick="openEnvelope()">
+            <div class="wax-seal">
+                <span>F&S</span>
+            </div>
+        </div>
+        <div class="envelope-text">✉️ Açmaq üçün toxunun</div>
+    </div>
+
+    <!-- DƏVƏTNAMƏ KARTI -->
+    <div class="invitation-card" id="card">
+        
+        <div class="music-player">
+            <button id="music-btn" onclick="toggleMusic()">🔊 Musiqini Dayandır</button>
+            <audio id="bg-music" loop>
+                <source src="musiqi.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <div class="top-subtitle">Toy Dəvətnaməsi</div>
+        <h1 class="names">Fuad & Sevinc</h1>
+        <div class="divider"></div>
+        
+        <p class="invitation-text">
+            Həyatımızın bu ən özəl və unudulmaz günündə – yeni ailəmizin təməlini qoyarkən siz dəyərli qonaqlarımızı yanımızda görməkdən böyük şadlıq duyarıq.
+        </p>
+
+        <div class="details-box">
+            <div class="event-hall">GOLDEN RING ŞADLIQ SARAYI</div>
+            <div class="event-date-time">16 NOYABR 2026 | SAAT: 18:00</div>
+        </div>
+
+        <div class="section-box">
+            <div class="section-title">✨ TƏDBİR PROQRAMI</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">18:00</div>
+                    <div class="timeline-desc">Qonaqların qarşılanması</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">19:00</div>
+                    <div class="timeline-desc">Bəy və Gəlinin gəlişi</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">20:30</div>
+                    <div class="timeline-desc">Şou proqram və rəqslər</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">22:30</div>
+                    <div class="timeline-desc">Tort kəsilməsi mərasimi</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timer-title">TƏDBİRƏ QALAN VAXT</div>
+        <div id="countdown">
+            <div class="time-box"><span id="days">00</span><label>Gün</label></div>
+            <div class="time-box"><span id="hours">00</span><label>Saat</label></div>
+            <div class="time-box"><span id="minutes">00</span><label>Dəq</label></div>
+            <div class="time-box"><span id="seconds">00</span><label>San</label></div>
+        </div>
+
+        <!-- RSVP -->
+        <div class="section-box">
+            <div class="section-title">✉️ İŞTİRAK TƏSDİQİ (RSVP)</div>
+            <div class="form-group">
+                <label for="rsvp-name">Adınız və Soyadınız:</label>
+                <input type="text" id="rsvp-name" class="form-input" placeholder="Məsələn: Əli Məmmədov">
+            </div>
+            <div class="form-group">
+                <label>İştirak durumunuz:</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="İştirak edəcəyəm" checked> İştirak edəcəyəm
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="Təəssüf ki, gələ bilməyəcəyəm"> Gələ bilməyəcəyəm
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="rsvp-count">Nəfər sayı (Özünüz daxil):</label>
+                <select id="rsvp-count" class="form-select">
+                    <option value="1 nəfər">1 nəfər</option>
+                    <option value="2 nəfər">2 nəfər</option>
+                    <option value="3 nəfər">3 nəfər</option>
+                    <option value="4+ nəfər">4 və ya daha çox nəfər</option>
+                </select>
+            </div>
+            <button class="btn-action" onclick="sendRSVP()">TƏSDİQİ GÖNDƏR (WHATSAPP)</button>
+        </div>
+
+        <!-- Arzular Bölməsi -->
+        <div class="section-box">
+            <div class="section-title">💌 BƏY VƏ GƏLİNƏ ARZULARINIZ</div>
+            <div class="form-group">
+                <label for="guest-name">Adınız və Soyadınız:</label>
+                <input type="text" id="guest-name" class="form-input" placeholder="Məsələn: Əli Məmmədov">
+            </div>
+            <div class="form-group">
+                <label for="guest-wish">Arzu və Təbrikiniz:</label>
+                <textarea id="guest-wish" class="form-textarea" placeholder="Ürək sözlərinizi buraya yazın..."></textarea>
+            </div>
+            <button class="btn-action" onclick="sendWish()">ARZUNU GÖNDƏR (WHATSAPP)</button>
+        </div>
+
+        <!-- Xəritə Düymələri -->
+        <div class="map-buttons">
+            <a href="https://maps.app.goo.gl/fGDo9Pi52LuR53FUA?g_st=iw" target="_blank" class="btn-map">🗺️ GOOGLE MAPS</a>
+            <a href="https://waze.com/ul/htp5tb6n4b" target="_blank" class="btn-map">🚗 WAZE İLƏ GƏL</a>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            const wrapper = document.getElementById("envelope-wrapper");
+            const card = document.getElementById("card");
+            const music = document.getElementById("bg-music");
+
+            // Zərfi itiririk
+            wrapper.style.opacity = "0";
+            wrapper.style.visibility = "hidden";
+
+            // Kartı göstəririk
+            card.classList.add("show");
+
+            // Musiqini başladırıq
+            music.play().catch(e => console.log("Musiqi səsi bloklandı"));
+        }
+
+        // Tədbir tarixi: 16 Noyabr 2026, 18:00 (Noyabr = 10)
+        const eventDate = new Date(2026, 10, 16, 18, 0, 0).getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "<b style='color:var(--accent-gold)'>Tədbir Başladı!</b>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }, 1000);
+
+        const phone = "994000000000"; 
+
+        function sendRSVP() {
+            const name = document.getElementById("rsvp-name").value;
+            const attendance = document.querySelector('input[name="attendance"]:checked').value;
+            const count = document.getElementById("rsvp-count").value;
+            
+            if (!name.trim()) {
+                alert("Zəhmət olmasa adınızı qeyd edin.");
+                return;
+            }
+            
+            const message = encodeURIComponent("Salam! Mən " + name + ".\n\nİştirak Təsdiqi (RSVP):\nStatus: " + attendance + "\nNəfər sayı: " + count);
+            window.open("https://wa.me/" + phone + "?text=" + message, "_blank");
+        }
+
+        function sendWish() {
+            const name = document.getElementById("guest-name").value;
+            const wish = document.getElementById("guest-wish").value;
+            
+            if (!name.trim() || !wish.trim()) {
+                alert("Zəhmət olmasa adınızı və arzularınızı qeyd edin.");
+                return;
+            }
+            
+            const message = encodeURIComponent("Salam! Mən " + name + ".\n\nTəbrikim və arzum:\n" + wish);
+            window.open("https://wa.me/" + phone + "?text=" + message, "_blank");
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById("bg-music");
+            const btn = document.getElementById("music-btn");
+
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = "🔊 Musiqini Dayandır";
+            } else {
+                music.pause();
+                btn.innerHTML = "🎵 Musiqini Qoş";
+            }
+        }
+    </script>
+
 </body>
 </html>
